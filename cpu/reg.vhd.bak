@@ -1,0 +1,39 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+ENTITY REG IS 
+generic
+(
+width: integer := 16; --Data width
+depth: integer := 8 --Addr depth
+);
+PORT (CLK,we:IN STD_LOGIC;
+			
+        ADDRIN1: IN  STD_LOGIC_VECTOR (depth-1 DOWNTO 0);
+		  ADDRIN2: IN  STD_LOGIC_VECTOR (depth-1 DOWNTO 0);
+		  DataIn:IN STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+		  DataOut1:OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+        DataOut2:OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0));
+        --QB:OUT STD_LOGIC);
+END REG;
+
+ARCHITECTURE behav OF REG IS
+type RamType is array(2 ** depth - 1 downto 0) of std_logic_vector(width - 1 downto 0);
+
+signal Ram : RamType;
+BEGIN 
+
+PROCESS (CLK)
+  
+begin
+if clk'event and clk = '1' then
+	if we = '1' then
+		Ram(conv_integer(addRIN)) <= dataIn;
+	else
+		dataOut1 <= Ram(conv_integer(addrIN1));
+		dataOut2 <= Ram(conv_integer(addrIN2));
+	end if;
+end if;
+end process;
+END behav;

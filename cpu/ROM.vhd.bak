@@ -1,0 +1,42 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+ENTITY ROM IS 
+generic
+(
+width: integer := 8; --Data width
+depth: integer := 8 ;--Addr depth
+mode:integer:=0
+);
+PORT (CLK,cs,we:IN STD_LOGIC;
+			re:in std_LOGIC;
+        ADDRIN: IN  STD_LOGIC_VECTOR (depth-1 DOWNTO 0);
+		  DataIn:IN STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+        DataOut:OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0));
+        --QB:OUT STD_LOGIC);
+END ROM;
+
+ARCHITECTURE behav OF ROM IS
+type RamType is array(2 ** depth - 1 downto 0) of std_logic_vector(width - 1 downto 0);
+
+signal Ram : RamType;
+BEGIN 
+
+PROCESS (CLK) 
+begin
+
+if clk'event and clk = '1' then
+	if cs = '0' then
+		if we = '1' then
+			Ram(conv_integer(addRIN)) <= dataIn;
+		else
+			if re='1' then
+				dataOut <= Ram(conv_integer(addrIN));
+				else dataout<="ZZZZZZZZ";
+				end if;
+		end if; 
+	end if;
+end if;
+end process;
+END behav;

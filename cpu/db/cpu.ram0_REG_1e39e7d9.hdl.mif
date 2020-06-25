@@ -1,0 +1,18 @@
+-- begin_signature
+-- REG(width
+-- 8
+-- depth
+-- 2)
+-- end_signature
+WIDTH=8;
+DEPTH=4;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=BIN;
+
+CONTENT BEGIN
+	3 :	00000100;
+	2 :	00000011;
+	1 :	00000010;
+	0 :	00000001;
+END;

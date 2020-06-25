@@ -1,0 +1,32 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+ENTITY RAM IS 
+generic
+(
+width: integer := 16; --Data width
+depth: integer := 8 --Addr depth
+);
+PORT (CLK，ENA:IN STD_LOGIC;
+		
+        ADDRIN: IN  STD_LOGIC_VECTOR (depth-1 DOWNTO 0);
+		  DataIn:OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+        DataOut:OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0));
+        --QB:OUT STD_LOGIC);
+END RAM;
+
+ARCHITECTURE behav OF RAM IS
+type RamType is array(2 ** depth - 1 downto 0) of std_logic_vector(width - 1 downto 0);
+
+signal Ram : RamType;
+BEGIN 
+
+PROCESS (CLK)
+    VARIABLE REG8:STD_LOGIC_VECTOR (1 DOWNTO 0);
+	  VARIABLE flag:STD_LOGIC ;
+BEGIN 
+    IF CLK'EVENT AND CLK='1' then
+		PCOUT<=PCIN;
+    END IF; 
+   
+END PROCESS;
+END behav;
